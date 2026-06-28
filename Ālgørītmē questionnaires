@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Questionnaire de l'Algorithme</title>
+
+<style>
+body {
+    background: black;
+    color: #ff0033;
+    font-family: monospace;
+    text-align: center;
+    overflow: hidden;
+}
+
+button {
+    background: #111;
+    color: #ff0033;
+    border: 1px solid #ff0033;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #ff0033;
+    color: black;
+}
+
+.glitch {
+    animation: glitch 0.2s infinite;
+}
+
+@keyframes glitch {
+    0% { transform: translate(0,0); }
+    25% { transform: translate(2px,-2px); }
+    50% { transform: translate(-2px,2px); }
+    75% { transform: translate(2px,2px); }
+    100% { transform: translate(0,0); }
+}
+
+#bug {
+    position: absolute;
+    top:0;left:0;
+    width:100%;height:100%;
+    background: red;
+    color: black;
+    display:none;
+    font-size: 30px;
+    padding-top: 20%;
+}
+</style>
+</head>
+
+<body>
+
+<div id="app"></div>
+<div id="bug">ERREUR SYSTÈME... REPRISE AUTOMATIQUE</div>
+
+<script>
+let app = document.getElementById("app");
+let bug = document.getElementById("bug");
+
+function start() {
+    app.innerHTML = `
+        <h1 class="glitch">Bienvenue au questionnaire de l'algorithme</h1>
+        <button onclick="q1()">OK</button>
+    `;
+}
+
+function q1() {
+    app.innerHTML = `
+        <p>Tout d’abord, souhaites-tu répondre à ce questionnaire pour continuer le jeu ?</p>
+        <button onclick="q2()">Oui</button>
+        <button onclick="fakeBug()">Non</button>
+    `;
+}
+
+function fakeBug() {
+    bug.style.display = "block";
+    setTimeout(() => {
+        bug.style.display = "none";
+        q2();
+    }, 2000);
+}
+
+function q2() {
+    app.innerHTML = `
+        <p>Es-tu seul ?</p>
+        <button onclick="q3()">Oui</button>
+        <button onclick="q3()">Non</button>
+    `;
+}
+
+function q3() {
+    app.innerHTML = `
+        <p>Tu es sûr ?</p>
+        <button onclick="q4()">Oui</button>
+        <button onclick="menteur()">Non</button>
+    `;
+}
+
+function menteur() {
+    app.innerHTML = `<h2 class="glitch">MENTEUR</h2>`;
+    setTimeout(q2, 1500);
+}
+
+function q4() {
+    app.innerHTML = `<p>Hm... Je vois.</p><p>Est-ce que tu sais qui est derrière toi ?</p>`;
+    setTimeout(q5, 10000);
+}
+
+function q5() {
+    app.innerHTML = `
+        <p>Sais-tu ce qu’est l’algorithme ?</p>
+        <button onclick="wrong()">Oui</button>
+        <button onclick="q6()">Non</button>
+    `;
+}
+
+function wrong() {
+    app.innerHTML = `<p class="glitch">non, tu ne sais pas</p>`;
+    setTimeout(q5, 2000);
+}
+
+function q6() {
+    app.innerHTML = `
+        <p>L’algorithme est une IA qui a pour but de vous faire jouer.</p>
+        <br><br>
+        <h2>… / ..- / .-. / .—. / .-. / .. / … / .</h2>
+    `;
+}
+
+start();
+</script>
+
+</body>
+</html>
